@@ -3,11 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Hello from "./Hello";
+import Counter from "./Counter";
 
 // ReactDOM.render는 실제 DOM 내부에 리액트 컴포넌트를 렌더링하겠다는 것을 의미
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      {/*<Hello />*/}
+    {/*<App />*/}
+    <Counter></Counter>
   </React.StrictMode>,
   document.getElementById('root')
 );
