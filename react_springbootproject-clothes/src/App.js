@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container} from 'react-bootstrap';
+import {Col, Container, Row} from 'react-bootstrap';
 import {Route, Switch} from 'react-router-dom';
 import Header from "./layout/Header";
 
@@ -15,24 +15,30 @@ function App() {
   return (
       <Container fluid>
           <Header />
-          <Suspense fallback={<div>Loading...</div>}>
-              <Switch>
-                  {
-                      routes.map((route, idx) => {
-                          return route.component ? (
-                              <Route
-                                  key={idx}
-                                  path={route.path}
-                                  exact={route.exact}
-                                  name={route.name}
-                                  render={props => (
-                                      <route.component {...props} />
-                                  )} />
-                          ) : (null);
-                      })
-                  }
-              </Switch>
-          </Suspense>
+          <Row>
+              <Col></Col>
+              <Col xs={8}>
+                  <Suspense fallback={<div>Loading...</div>}>
+                      <Switch>
+                          {
+                              routes.map((route, idx) => {
+                                  return route.component ? (
+                                      <Route
+                                          key={idx}
+                                          path={route.path}
+                                          exact={route.exact}
+                                          name={route.name}
+                                          render={props => (
+                                              <route.component {...props} />
+                                          )} />
+                                  ) : (null);
+                              })
+                          }
+                      </Switch>
+                  </Suspense>
+              </Col>
+              <Col></Col>
+          </Row>
       </Container>
   );
 }
