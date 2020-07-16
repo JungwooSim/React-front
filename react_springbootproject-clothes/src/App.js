@@ -6,8 +6,9 @@ import {Route, Switch} from 'react-router-dom';
 import Header from "./layout/Header";
 
 const routes = [
-    { path: '/products', exact: true, name: 'Home', component: React.lazy(() => import('./product/ProductList'))},
-    { path: '/product/create', exact: true, name: 'Dashboard', component: React.lazy(() => import('./product/ProductCreate')) },
+    { path: '/products', exact: true, name: 'products', component: React.lazy(() => import('./product/ProductList'))},
+    { path: '/product/create', exact: true, name: 'productCreate', component: React.lazy(() => import('./product/ProductCreate')) },
+    { path: '/product/:productId', exact: true, name: 'productCreate', component: React.lazy(() => import('./product/ProductCreate')) }
 ];
 
 // TODO : REST API CALL 200 아닐 때 공통적으로 어떻게 처리할지 확인 필요

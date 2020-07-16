@@ -1,8 +1,7 @@
 import {Button, Table} from "react-bootstrap";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Link, Route} from "react-router-dom";
-import ProductCreate from "./ProductCreate";
+import {Link} from "react-router-dom";
 
 function ProductList() {
     const [products, setProducts] = useState(null);
@@ -56,7 +55,6 @@ function ProductList() {
                 <Link to={"/product/create"}>
                     <Button variant="primary">상품 등록</Button>
                 </Link>
-                <Route path={"/product/create"} component={ProductCreate} />
             </div>
             <br />
             <Table>
@@ -78,7 +76,11 @@ function ProductList() {
                 {products.data.list.map(product => (
                     <tr key={product.id}>
                         <td>{product.id}</td>
-                        <td>{product.name}</td>
+                        <td>
+                            <Link to={"/product/"+product.id}>
+                                {product.name}
+                            </Link>
+                        </td>
                         <td>{product.category}</td>
                         <td>{product.category_detail}</td>
                         <td>{product.cost_price}</td>

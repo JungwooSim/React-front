@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
 
-function ProductCreate() {
+function ProductCreate(props) {
+    let productId = props.match.params.productId;
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [errorMessage, setErrorMessage] = useState("에러가 발생하였습니다.");
@@ -26,6 +28,41 @@ function ProductCreate() {
             [name]:value
         });
     };
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                // loading 상태를 True로 바꾼다.
+                setLoading(true);
+                const response = await axios.get(
+                    "http://localhost:8080/api/product/"+productId, {
+                        headers : {
+                            "Content-Type" : "application/json"
+                        }
+                    }
+                );
+                console.log(response);
+
+                if (response.data.code !== 200) {
+                    setErrorMessage("요청에 실패하였습니다.");
+                } else {
+                    setInputs({
+                        name : response.data.data.name,
+                        productInformation : response.data.data.product_information,
+                        costPrice : response.data.data.cost_price,
+                        sellingPrice : response.data.data.selling_price,
+                        adminId : 1,
+                        categoryId : response.data.data.category_id,
+                        categoryDetailId : response.data.data.category_detail_id
+                    });
+                }
+            } catch (e) {
+            }
+        }
+        fetchProduct();
+        setLoading(false);
+    }, []);
+
+    console.log(inputs);
 
     const handleSubmit = async event => {
         event.preventDefault();
@@ -112,4 +149,4 @@ function ProductCreate() {
     )
 }
 
-export default ProductCreate;
+export default React.memo(ProductCreate);
